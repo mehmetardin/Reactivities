@@ -42,6 +42,16 @@ export default class ActivityStore{
         return this.activityRegistery.get(id);
     }
 
+    get groupedActivities(){
+        return Object.entries(
+            this.activitiesByDate.reduce((activities, activity) => {
+            const date = activity.date;
+            activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+            return activities;
+            }, {} as {[key:string]: Activity[]})
+        )
+    }
+
     loadActivity = async (id: string) =>{
         let activity = this.getActivity(id);
 
