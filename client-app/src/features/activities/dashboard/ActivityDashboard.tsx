@@ -18,7 +18,7 @@ const {loadActivities, activityRegistery} = activityStore;
    if (activityRegistery.size <= 1) loadActivities();
   }, [activityRegistery.size, loadActivities])
 
-  if(activityStore.loadingInitial) return <LoadingComponent content = 'Loading app...'/>
+  if(activityStore.loadingInitial) return <LoadingComponent content = 'Loading activities...'/>
 
     return(
         <Grid>
