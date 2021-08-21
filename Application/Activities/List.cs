@@ -34,7 +34,8 @@ namespace Application.Activities
                 .ProjectTo<ActivityDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-                return Result<List<ActivityDto>>.Success(activities);
+                var result = Result<List<ActivityDto>>.Success(activities);
+                return result;
             }
         }
     }

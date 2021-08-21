@@ -11,7 +11,7 @@ interface Store{
     modalStore: ModalStore;
 }
 
-export const store: Store ={
+export const store: Store = {
     activityStore: new ActivityStore(),
     commonStore: new CommonStore(),
     userStore: new UserStore(),

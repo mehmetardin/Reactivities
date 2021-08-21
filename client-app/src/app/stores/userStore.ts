@@ -16,13 +16,12 @@ export default class UserStore{
         return !!this.user;
     }
 
-    login = async (creds: UserFormValues) =>{
+    login = async (creds: UserFormValues) => {
         try{
             const user = await agent.Account.login(creds);
             store.commonStore.setToken(user.token);
-            runInAction (() =>
-                this.user = user
-            )
+            runInAction (() => 
+                this.user = user)
             history.push('/activities');
             store.modalStore.closeModel();
         } catch(error) {
@@ -40,7 +39,9 @@ export default class UserStore{
     getUser = async () => {
         try {
             const user = await agent.Account.current();
-            runInAction(() => this.user = user );
+            runInAction(() => 
+                this.user = user 
+            );
         } catch (error) {
             console.log(error);
         }
@@ -52,7 +53,7 @@ export default class UserStore{
             store.commonStore.setToken(user.token);
             runInAction (() =>
                 this.user = user
-            )
+            );
             history.push('/activities');
             store.modalStore.closeModel();
         } catch(error) {
