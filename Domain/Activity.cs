@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Domain
 {
-    public class Activity
+    public class Activity : BaseEntity<Guid>
     {
-        public Guid Id { get; set; }
+        //public Guid Id { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
@@ -15,5 +15,6 @@ namespace Domain
         public bool IsCancelled { get; set; }
 
         public ICollection<ActivityAttendee> Attendees { get; set; } = new List<ActivityAttendee>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
