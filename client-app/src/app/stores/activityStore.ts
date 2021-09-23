@@ -83,9 +83,9 @@ export default class ActivityStore{
 
         if(user){
             activity.isGoing = activity.attendees!.some(
-                a => a.username === user.userName
+                a => a.username === user.username
             )
-            activity.isHost =  (activity.hostUsername === user.userName);
+            activity.isHost =  (activity.hostUsername === user.username);
             activity.host = activity.attendees?.find(x => x.username === activity.hostUsername);
         }
 
@@ -105,7 +105,7 @@ export default class ActivityStore{
         try {
             await agent.Activities.create(activity);
             const newActivity = new Activity(activity);
-            newActivity.hostUsername = user!.userName;
+            newActivity.hostUsername = user!.username;
             newActivity.attendees = [attendee];
             this.setActivity(newActivity);
             runInAction(() =>{
@@ -158,7 +158,7 @@ export default class ActivityStore{
             runInAction(() =>{
                 if(this.selectedActivity?.isGoing){
                     this.selectedActivity.attendees = 
-                    this.selectedActivity.attendees?.filter(a => a.username !== user?.userName);
+                    this.selectedActivity.attendees?.filter(a => a.username !== user?.username);
                     this.selectedActivity.isGoing = false;
                 } else {
                     const attendee = new Profile(user!);
@@ -193,8 +193,19 @@ export default class ActivityStore{
 
     }
 
+    updateAttendeeFollowing = (username: string) => {
+        this.activityRegistery.forEach(activity => {
+            activity.attendees?.forEach(attendee => {
+                if (attendee.username === username) {
+                    attendee.following ? attendee.followersCount-- : attendee.followersCount++;
+                    attendee.following = !attendee.following;
+                }
+            })
+        })
+    }
+
     clearSelectedActivity = () => {
         this.selectedActivity = undefined;
     }
-  
+    
 }
